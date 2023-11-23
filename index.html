@@ -9,28 +9,28 @@
   <body>
     <div class="list-boxes">
       <div class="box" id="box01">
-        <h2>To do</h2>
+        <h2 data-status="todo" class="title">To do</h2>
         <ul class="list" id="list-todo"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box02">
-        <h2>In progress</h2>
+        <h2 class="title">In progress</h2>
         <ul class="list" id="list-progress"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box03">
-        <h2>Stuck</h2>
+        <h2 class="title">Stuck</h2>
         <ul class="list" id="list-stuck"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box04">
-        <h2>Done</h2>
+        <h2 class="title">Done</h2>
         <ul class="list" id="list-done"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
@@ -54,12 +54,12 @@
         />
         <label for="status">Status</label>
         <select name="" id="lists-of-option">
-          <option class="taskoptions" id="ToDo" value="ToDo">To do</option>
-          <option class="taskoptions" id="InProgress" value="InProgress">
+          <option class="taskoptions" id="ToDo" value="todo">To do</option>
+          <option class="taskoptions" id="InProgress" value="inProgress">
             In progress
           </option>
-          <option class="taskoptions" id="Stuck" value="Stuck">Stuck</option>
-          <option class="taskoptions" id="Done" value="Done">Done</option>
+          <option class="taskoptions" id="Stuck" value="stuck">Stuck</option>
+          <option class="taskoptions" id="Done" value="done">Done</option>
         </select>
         <label for="Priority">Priority</label>
         <select name="" id="">

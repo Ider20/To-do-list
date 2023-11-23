@@ -20,10 +20,17 @@ const doneOptionRef = document.getElementById("Done");
 // console.log(inProgressOptionRef.innerHTML);
 // console.log(stuckOptionRef.innerHTML);
 // console.log(doneOptionRef.innerHTML);
-const listUl = document.querySelector("");
-console.log(listUl[3]);
+
+const listUl = document.getElementsByClassName("box");
+console.log("Ul -", listUl[0].children[1]);
+// -------------------------------------------------------
+const titleRef = document.getElementsByClassName("title");
+console.log("h2 -", titleRef[0].getAttribute("data-status"));
+// -------------------------------------------------------
 const optionTaskRef = document.getElementsByClassName("taskoptions");
-console.log(optionTaskRef[3].innerText);
+// selectiin ID-g barij avaad value-g ni gargana aaaaaaaaa
+console.log("options text -", optionTaskRef[0].value);
+// -------------------------------------------------------
 
 function orderTask() {
   filltaskRef.style.display = "flex";
@@ -42,10 +49,11 @@ function addTask() {
     description.textContent = taskDescriptionRef.value;
     // console.log(title, description);
 
-    // for (let i = 0; i < listUl.length; i++) {
-    //     for(let j=i; j<optionTaskRef.length; j++){
-    //         if (optionTaskRef[j]===)
+    // for (let i = 0; i < titleRef.length; i++) {
+    //   for (let j = i; j < optionTaskRef.length; j++) {
+    //     if (optionTaskRef[j].innerText === titleRef[i].innerText) {
     //     }
+    //   }
     // }
 
     // listtodoRef.appendChild(title);
