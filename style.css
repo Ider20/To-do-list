@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+body {
+  /* margin-top: 20px; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+.list-boxes {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  position: absolute;
+  margin-top: 50px;
+  margin-left: 80px;
+}
+.box {
+  width: 300px;
+  height: auto;
+  background-color: grey;
+  border-radius: 7px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 30px;
+}
+.box > button {
+  cursor: pointer;
+  flex-direction: column;
+  padding: 7px;
+  height: 30px;
+  border-radius: 7px;
+  border-radius: solid 1px #000;
+  box-shadow: none;
+  background-color: none;
+  border-inline: none;
+  border-style: none;
+  transition: all 0.3s;
+}
+.box > button:hover {
+  transform: scale(1.05);
+}
+.box > button:active {
+  transform: scale(0.95);
+}
+/* Filling form */
+.form-background {
+  width: 100%;
+  height: 700px;
+  background-color: #00000072;
+  position: relative;
+  /* padding-top: 30px; */
+  display: none;
+}
+.form {
+  width: 400px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  /* margin-left: 50px; */
+  gap: 5px;
+  margin: auto;
+  background-color: white;
+  border-radius: 7px;
+  /* margin-top: 50px; */
+  /* position: absolute; */
+  padding: 20px;
+}
+.form > button:first-child {
+  width: 50px;
+  align-self: end;
+  cursor: pointer;
+}
