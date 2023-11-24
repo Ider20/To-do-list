@@ -16,21 +16,21 @@
         </button>
       </div>
       <div class="box" id="box02">
-        <h2 class="title">In progress</h2>
+        <h2 data-status="inProgress" class="title">In progress</h2>
         <ul class="list" id="list-progress"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box03">
-        <h2 class="title">Stuck</h2>
+        <h2 data-status="stuck" class="title">Stuck</h2>
         <ul class="list" id="list-stuck"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box04">
-        <h2 class="title">Done</h2>
+        <h2 data-status="done" class="title">Done</h2>
         <ul class="list" id="list-done"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
@@ -62,7 +62,7 @@
           <option class="taskoptions" id="Done" value="done">Done</option>
         </select>
         <label for="Priority">Priority</label>
-        <select name="" id="">
+        <select name="" id="priority">
           <option value="">Low</option>
           <option value="">Medium</option>
           <option value="">High</option>

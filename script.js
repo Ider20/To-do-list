@@ -6,7 +6,7 @@ const taskTitleRef = document.getElementById("titleinput"); // Form title field
 const taskDescriptionRef = document.getElementById("textinput"); // Form description field
 // console.log("descriptipn", taskDescriptionRef);
 //task list boxes
-const listtodoRef = document.getElementById("list-todo"); // UL list-todo
+// const listtodoRef = document.getElementById("list-todo"); // UL list-todo
 const listProgressRef = document.getElementById("list-progress"); //UL list-progress
 const listStuckRef = document.getElementById("list-stuck"); // UL list-stuck
 const listDoneRef = document.getElementById("list-done"); //UL list-Done
@@ -21,15 +21,14 @@ const doneOptionRef = document.getElementById("Done");
 // console.log(stuckOptionRef.innerHTML);
 // console.log(doneOptionRef.innerHTML);
 
-const listUl = document.getElementsByClassName("box");
-console.log("Ul -", listUl[0].children[1]);
+const listUlRef = document.getElementsByClassName("box");
+console.log("Ul -", listUlRef[0].children[1]);
 // -------------------------------------------------------
 const titleRef = document.getElementsByClassName("title");
 console.log("h2 -", titleRef[0].getAttribute("data-status"));
 // -------------------------------------------------------
-const optionTaskRef = document.getElementsByClassName("taskoptions");
-// selectiin ID-g barij avaad value-g ni gargana aaaaaaaaa
-console.log("options text -", optionTaskRef[0].value);
+const selectRef = document.getElementById("lists-of-option");
+console.log("selectRef -", selectRef[0].value);
 // -------------------------------------------------------
 
 function orderTask() {
@@ -43,18 +42,39 @@ function addTask() {
   if (taskTitleRef.value === "" && taskDescriptionRef.value === "") {
     alert("Please fill the Title or Description");
   } else {
-    const title = document.createElement("li");
+    const buttonCheck = document.createElement("button");
+    buttonCheck.innerText = "v";
+    const buttonDelete = document.createElement("button");
+    buttonDelete.innerText = "X";
+    const buttonEdit = document.createElement("button");
+    const subdiv = document.createElement("div");
+    const subdiv01 = document.createElement("div");
+    const subdiv02 = document.createElement("div");
+    const subdiv03 = document.createElement("div");
+    const title = document.createElement("p");
     title.textContent = taskTitleRef.value;
     const description = document.createElement("p");
     description.textContent = taskDescriptionRef.value;
+    subdiv01.appendChild(buttonCheck);
+    subdiv02.appendChild(title);
+    subdiv02.appendChild(description);
+    subdiv03.appendChild(buttonDelete);
+    subdiv03.appendChild(buttonEdit);
+    subdiv.appendChild(subdiv01);
+    subdiv.appendChild(subdiv02);
+    subdiv.appendChild(subdiv03);
     // console.log(title, description);
-
-    // for (let i = 0; i < titleRef.length; i++) {
-    //   for (let j = i; j < optionTaskRef.length; j++) {
-    //     if (optionTaskRef[j].innerText === titleRef[i].innerText) {
-    //     }
-    //   }
-    // }
+    for (let i = 0; i < titleRef.length; i++) {
+      for (let j = i; j < selectRef.length; j++) {
+        if (selectRef.value === titleRef[i].getAttribute("data-status")) {
+          // console.log(
+          //   selectRef[j].value,
+          //   titleRef[i].getAttribute("data-status")
+          // );
+          listUlRef[i].children[1].appendChild(subdiv);
+        }
+      }
+    }
 
     // listtodoRef.appendChild(title);
     // listtodoRef.appendChild(description);
