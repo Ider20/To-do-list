@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To do list</title>
     <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/272037327f.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="list-boxes">
@@ -38,7 +42,7 @@
       </div>
     </div>
     <!-- Filling form -->
-    <div class="form-background">
+    <div class="form-background" onclick="">
       <div class="form">
         <button id="close-form" onclick="closeTask()">Close</button>
         <h2>Add task</h2>
@@ -63,11 +67,11 @@
         </select>
         <label for="Priority">Priority</label>
         <select name="" id="priority">
-          <option value="">Low</option>
-          <option value="">Medium</option>
-          <option value="">High</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
         </select>
-        <button onclick="addTask()">Add task</button>
+        <button id="addtask" onclick="addTask()">Add task</button>
       </div>
     </div>
     <script src="./script.js"></script>
