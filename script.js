@@ -1,5 +1,5 @@
 const filltaskRef = document.querySelector(".form-background"); // Filling form window
-const closeformRef = document.getElementById("close-form"); //Closing filling form window
+const closeformRef = document.getElementById("close-form"); //Close filling form window
 const formRef = document.querySelector(".form");
 // console.log(filltaskRef);
 const taskTitleRef = document.getElementById("titleinput"); // Form title field
@@ -22,7 +22,7 @@ const doneOptionRef = document.getElementById("Done");
 // console.log(stuckOptionRef.innerHTML);
 // console.log(doneOptionRef.innerHTML);
 
-const listUlRef = document.getElementsByClassName("box");
+const listUlRef = document.getElementsByClassName("box"); // Pusshing chilrden in here
 console.log("Ul -", listUlRef[0].children[1]);
 // -------------------------------------------------------
 const titleRef = document.getElementsByClassName("title");
@@ -38,6 +38,7 @@ function orderTask() {
 }
 function closeTask() {
   filltaskRef.style.display = "none";
+  editTaskWindowRef.style.display = "none";
 }
 
 function addTask() {
@@ -53,14 +54,16 @@ function addTask() {
     buttonEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
     buttonEdit.setAttribute("onclick", "editTask(this)");
     const subdiv = document.createElement("div");
+    subdiv.setAttribute("draggable", "true");
     const subdiv01 = document.createElement("div");
     const subdiv02 = document.createElement("div");
     const subdiv03 = document.createElement("div");
     const title = document.createElement("p");
-    title.setAttribute("id", "title_edit");
+    title.setAttribute("class", "title_editable");
+    title.setAttribute("value", "title");
     title.textContent = taskTitleRef.value;
     const description = document.createElement("p");
-    description.setAttribute("id", "description_edit");
+    description.setAttribute("class", "description_editable");
     description.textContent = taskDescriptionRef.value;
     const priority = document.createElement("div");
     for (let i = 0; i < priorityRef.length; i++) {
@@ -115,30 +118,62 @@ function deleteTask(event) {
 // };
 
 // container.innerHTML += deleteBtn("Update");
-function editTask(event) {
-  console.log("edit button -", event);
-  filltaskRef.style.display = "flex";
-  const addTaskButtonRef = document.getElementById("addtask");
-  addTaskButtonRef.style.display = "none";
-  const editTaskRef = document.createElement("button");
-  editTaskRef.setAttribute("onclick", "editTaskEnd(this)");
-  editTaskRef.innerText = "Edit Task";
-  formRef.appendChild(editTaskRef);
 
-  let parent = document.getElementById("title_edit");
-  let child = document.getElementById("description_edit");
-  taskTitleRef.value = parent.textContent;
-  taskDescriptionRef.value = child.textContent;
-  let parentDel = event.parentNode.parentNode.parentNode;
-  let childDel = event.parentNode.parentNode;
-  parentDel.removeChild(childDel);
-  taskTitleRef.value = "";
-  taskDescriptionRef.value = "";
+// Edit task from begins here:--------------------------------------
+const editTaskWindowRef = document.querySelector(".edit-background");
+const editTitleInputRef = document.getElementById("edittitleinput");
+const editDescrInputRef = document.getElementById("edittextinput");
+
+console.log("ul children -", listUlRef);
+
+function editTask(event) {
+  editTaskWindowRef.style.display = "flex";
+
+  let editTitleValue = event.parentNode.parentNode.children[1].children[0]; // Title-iinhaa HTML-g barij avch baina
+  let editDescriptionValue =
+    event.parentNode.parentNode.children[1].children[1]; // Description-iihoo HTML-g barij avch baina
+
+  editTitleInputRef.value = editTitleValue.innerText;
+  editDescrInputRef.value = editDescriptionValue.innerText;
 }
-function editTaskEnd(event) {
-  // let parentDel = event.parentNode.parentNode.parentNode;
-  // let childDel = event.parentNode.parentNode;
-  // parentDel.removeChild(childDel);
-  taskTitleRef.value = "";
-  taskDescriptionRef.value = "";
-}
+const editTaskDone = document.getElementById("edittaskdone");
+editTaskDone.addEventListener("click", (event) => {
+  let paragraphsT = document.querySelectorAll(".title_editable");
+  for (i = 0; i < paragraphsT.length; i++) {
+    // console.log("event", event.target);
+    if (paragraphsT[i].textContent !== "") {
+      const editedTitle = event.target.parentNode.children[3];
+      console.log("editedTitle", editedTitle.value);
+      paragraphsT[i].textContent = editedTitle.value;
+      // editTitleValue.innerText = editedTitle.value;
+      console.log("paragraph", paragraphsT[i].innerHTML);
+    }
+  }
+
+  // const editedDescr = event.target.parentNode.children[5];
+  // editDescriptionValue.innerText = editedDescr.value;
+  editTaskWindowRef.style.display = "none";
+});
+
+editTitleInputRef.value = "";
+editDescrInputRef.value = "";
+// function editTaskDone() {
+//   if (editTitleInputRef.value === "" && editDescrInputRef.value === "") {
+//     alert("Please edit task");
+//   } else {
+
+//   }
+// }
+//drag and drop ====================================================
+
+
+const draggAbleBoxesRef = document.querySelectorAll(".list");
+const draggAbleTodoRef = draggAbleBoxesRef[0];
+const draggAbleInProgRef = draggAbleBoxesRef[1];
+const draggAbleStuckRef = draggAbleBoxesRef[2];
+const draggAbleDoneRef = draggAbleBoxesRef[3];
+
+const dropAbleRef = document.
+
+//drop -------------------------------------------------------------
+// dropAbleTodoRef.addEventListener("dragenter", (event) => {});

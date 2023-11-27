@@ -74,6 +74,41 @@
         <button id="addtask" onclick="addTask()">Add task</button>
       </div>
     </div>
+    <!-- Edit task -->
+    <div class="edit-background" onclick="">
+      <div class="form">
+        <button id="close-form" onclick="closeTask()">Close</button>
+        <h2>Edit task</h2>
+        <label for="edit_title">Title</label>
+        <input type="text" id="edittitleinput" />
+        <label for="editdescription">Description</label>
+        <input
+          id="edittextinput"
+          rows="4"
+          cols="50"
+          name="comment"
+          form="usrform"
+        />
+        <label for="status">Status</label>
+        <select name="" id="edit-lists-of-option">
+          <option class="taskoptions" id="editToDo" value="todo">To do</option>
+          <option class="taskoptions" id="editInProgress" value="inProgress">
+            In progress
+          </option>
+          <option class="taskoptions" id="editStuck" value="stuck">
+            Stuck
+          </option>
+          <option class="taskoptions" id="editDone" value="done">Done</option>
+        </select>
+        <label for="Priority">Priority</label>
+        <select name="" id="editpriority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button id="edittaskdone" onclick="">Edit task</button>
+      </div>
+    </div>
     <script src="./script.js"></script>
   </body>
 </html>

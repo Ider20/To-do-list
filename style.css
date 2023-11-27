@@ -143,3 +143,12 @@ ul > div > div > div {
   align-items: center;
   border-radius: 7px;
 }
+/* Edit task */
+.edit-background {
+  position: relative;
+  background-color: #00000034;
+  width: 100%;
+  height: 700px;
+  padding-top: 50px;
+  display: none;
+}
