@@ -166,14 +166,13 @@ editDescrInputRef.value = "";
 // }
 //drag and drop ====================================================
 
-
 const draggAbleBoxesRef = document.querySelectorAll(".list");
 const draggAbleTodoRef = draggAbleBoxesRef[0];
 const draggAbleInProgRef = draggAbleBoxesRef[1];
 const draggAbleStuckRef = draggAbleBoxesRef[2];
 const draggAbleDoneRef = draggAbleBoxesRef[3];
 
-const dropAbleRef = document.
+const dropAbleTodoRef = document.getElementById("box01");
 
 //drop -------------------------------------------------------------
 // dropAbleTodoRef.addEventListener("dragenter", (event) => {});
