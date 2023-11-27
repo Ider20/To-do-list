@@ -13,28 +13,42 @@
   <body>
     <div class="list-boxes">
       <div class="box" id="box01">
-        <h2 data-status="todo" class="title">To do</h2>
+        <div>
+          <h2 data-status="todo" class="title">To do</h2>
+          <span>0</span>
+        </div>
         <ul class="list" id="list-todo"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box02">
-        <h2 data-status="inProgress" class="title">In progress</h2>
+        <div>
+          <h2 data-status="inProgress" class="title">In progress</h2>
+          <span>0</span>
+        </div>
+
         <ul class="list" id="list-progress"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box03">
-        <h2 data-status="stuck" class="title">Stuck</h2>
+        <div>
+          <h2 data-status="stuck" class="title">Stuck</h2>
+          <span>0</span>
+        </div>
+
         <ul class="list" id="list-stuck"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>
         </button>
       </div>
       <div class="box" id="box04">
-        <h2 data-status="done" class="title">Done</h2>
+        <div>
+          <h2 data-status="done" class="title">Done</h2>
+          <span>0</span>
+        </div>
         <ul class="list" id="list-done"></ul>
         <button onclick="orderTask()">
           <p>+ Add task</p>

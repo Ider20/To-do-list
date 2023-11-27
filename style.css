@@ -16,7 +16,7 @@ body {
 }
 .box {
   width: 300px;
-  height: auto;
+  height: fit-content;
   background-color: grey;
   border-radius: 7px;
   padding: 20px;
@@ -24,6 +24,14 @@ body {
   flex-direction: column;
   justify-content: space-between;
   gap: 30px;
+}
+.box > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.box > div > span {
+  color: white;
 }
 .box > button {
   cursor: pointer;

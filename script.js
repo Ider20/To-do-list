@@ -47,12 +47,16 @@ function addTask() {
   } else {
     const buttonCheck = document.createElement("button");
     buttonCheck.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+
     const buttonDelete = document.createElement("button");
     buttonDelete.innerHTML = `<i class="fa-solid fa-trash"></i>`;
     buttonDelete.setAttribute("onclick", "deleteTask(this)");
+
     const buttonEdit = document.createElement("button");
     buttonEdit.innerHTML = `<i class="fa-regular fa-pen-to-square"></i>`;
-    buttonEdit.setAttribute("onclick", "editTask(this)");
+    buttonEdit.addEventListener("click", (event) =>
+      openEditTask(event, subdiv)
+    );
     const subdiv = document.createElement("div");
     subdiv.setAttribute("draggable", "true");
     const subdiv01 = document.createElement("div");
@@ -66,13 +70,21 @@ function addTask() {
     description.setAttribute("class", "description_editable");
     description.textContent = taskDescriptionRef.value;
     const priority = document.createElement("div");
+    //
+
+    const countableDone =
+      dropAbleTodoRef.getElementsByClassName("title_editable");
+    const countDone = dropAbleTodoRef.children[0].children[1];
+    for (let i = 1; i < dropAbleTodoRef.length + 1; i++) {
+      countDone.innerText = i + 1;
+    }
+    console.log(countDone.innerText);
+    //
     for (let i = 0; i < priorityRef.length; i++) {
       if (priorityRef.value === priorityRef[i].textContent.toLowerCase()) {
         priority.textContent = priorityRef[i].textContent;
       }
     }
-    // console.log("priority lower -", priorityRef[0].textContent.toLowerCase());
-    // console.log("priority -", priorityRef.value);
     subdiv01.appendChild(buttonCheck);
     subdiv02.appendChild(title);
     subdiv02.appendChild(description);
@@ -110,60 +122,29 @@ function deleteTask(event) {
   parent.removeChild(child);
 }
 
-// const container = document.querySelector(".container");
-
-// const deleteBtn = (text) => {
-//   const btn = `<button><i class="fa-solid fa-trash"></i>${text}</button>`;
-//   return btn;
-// };
-
-// container.innerHTML += deleteBtn("Update");
-
-// Edit task from begins here:--------------------------------------
+// Edit task from begins here:=====================================
 const editTaskWindowRef = document.querySelector(".edit-background");
 const editTitleInputRef = document.getElementById("edittitleinput");
 const editDescrInputRef = document.getElementById("edittextinput");
 
-console.log("ul children -", listUlRef);
-
-function editTask(event) {
+function openEditTask(event, subdiv) {
   editTaskWindowRef.style.display = "flex";
-
-  let editTitleValue = event.parentNode.parentNode.children[1].children[0]; // Title-iinhaa HTML-g barij avch baina
-  let editDescriptionValue =
-    event.parentNode.parentNode.children[1].children[1]; // Description-iihoo HTML-g barij avch baina
-
-  editTitleInputRef.value = editTitleValue.innerText;
-  editDescrInputRef.value = editDescriptionValue.innerText;
+  const title = subdiv.getElementsByClassName("title_editable")[0];
+  // console.log(title);
+  const description = subdiv.getElementsByClassName("description_editable")[0];
+  editTitleInputRef.value = title.innerText;
+  editDescrInputRef.value = description.innerText;
+  const editTaskDone = document.getElementById("edittaskdone");
+  // Edit task done begins here: ====================================
+  editTaskDone.onclick = () => {
+    // console.log("calling");
+    title.textContent = editTitleInputRef.value;
+    description.textContent = editDescrInputRef.value;
+    editTaskWindowRef.style.display = "none";
+  };
 }
-const editTaskDone = document.getElementById("edittaskdone");
-editTaskDone.addEventListener("click", (event) => {
-  let paragraphsT = document.querySelectorAll(".title_editable");
-  for (i = 0; i < paragraphsT.length; i++) {
-    // console.log("event", event.target);
-    if (paragraphsT[i].textContent !== "") {
-      const editedTitle = event.target.parentNode.children[3];
-      console.log("editedTitle", editedTitle.value);
-      paragraphsT[i].textContent = editedTitle.value;
-      // editTitleValue.innerText = editedTitle.value;
-      console.log("paragraph", paragraphsT[i].innerHTML);
-    }
-  }
-
-  // const editedDescr = event.target.parentNode.children[5];
-  // editDescriptionValue.innerText = editedDescr.value;
-  editTaskWindowRef.style.display = "none";
-});
-
 editTitleInputRef.value = "";
 editDescrInputRef.value = "";
-// function editTaskDone() {
-//   if (editTitleInputRef.value === "" && editDescrInputRef.value === "") {
-//     alert("Please edit task");
-//   } else {
-
-//   }
-// }
 //drag and drop ====================================================
 
 const draggAbleBoxesRef = document.querySelectorAll(".list");
@@ -173,6 +154,15 @@ const draggAbleStuckRef = draggAbleBoxesRef[2];
 const draggAbleDoneRef = draggAbleBoxesRef[3];
 
 const dropAbleTodoRef = document.getElementById("box01");
+const dropAbleInProgRef = document.getElementById("box02");
+const dropAbleStuckRef = document.getElementById("box03");
+const dropAbleDonegRef = document.getElementById("box04");
+console.log(dropAbleTodoRef, dropAbleInProgRef);
 
 //drop -------------------------------------------------------------
 // dropAbleTodoRef.addEventListener("dragenter", (event) => {});
+
+// Counting negins here: ===========================================
+
+// const countableDone = dropAbleTodoRef.querySelectorAll(".title_editable");
+// console.log(countableDone);
