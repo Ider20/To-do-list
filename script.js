@@ -23,13 +23,13 @@ const doneOptionRef = document.getElementById("Done");
 // console.log(doneOptionRef.innerHTML);
 
 const listUlRef = document.getElementsByClassName("box"); // Pusshing chilrden in here
-console.log("Ul -", listUlRef[0].children[1]);
+// console.log("Ul -", listUlRef[0].children[1]);
 // -------------------------------------------------------
 const titleRef = document.getElementsByClassName("title");
-console.log("h2 -", titleRef[0].getAttribute("data-status"));
+// console.log("h2 -", titleRef[0].getAttribute("data-status"));
 // -------------------------------------------------------
 const selectRef = document.getElementById("lists-of-option");
-console.log("selectRef -", selectRef[0].value);
+// console.log("selectRef -", selectRef[0].value);
 // -------------------------------------------------------
 const priorityRef = document.getElementById("priority");
 
@@ -57,29 +57,62 @@ function addTask() {
     buttonEdit.addEventListener("click", (event) =>
       openEditTask(event, subdiv)
     );
+    //Create and adding new 'div' with draggable ----------------------------------------
     const subdiv = document.createElement("div");
     subdiv.setAttribute("draggable", "true");
+    subdiv.setAttribute("class", "dragg");
+
+    let test = subdiv.querySelectorAll("dragg");
+
+    subdiv.addEventListener("dragstart", (event) => {
+      event.target.classList.add("test");
+      console.log(event.target);
+    });
+
+    subdiv.addEventListener("drag", (event) => {
+      // console.log("drag");
+    });
+    subdiv.addEventListener("dragend", (event) => {
+      // event.target.classList.remove("test");
+      console.log("drag end");
+    });
+
+    //-------
+    dropAbleInProgRef.addEventListener("dragenter", (event) => {
+      event.target.style.border = "solid 1px red";
+      console.log("drag enter");
+    });
+    dropAbleInProgRef.addEventListener("dragover", (event) => {
+      // console.log("drag over");
+      event.preventDefault();
+    });
+    dropAbleInProgRef.addEventListener("dragleave", (event) => {
+      console.log("drag leave");
+      event.target.style.border = "none";
+    });
+    dropAbleInProgRef.addEventListener("drop", (event) => {
+      event.target.style.border = "none";
+      // console.log("event.target", event.target.children[1]);
+      const dragCard = document.getElementsByClassName("test")[0];
+      event.target.children[1].appendChild(dragCard);
+      console.log("drop", event.target);
+    });
+    // ----------------------------------------------------------------------------------
+
     const subdiv01 = document.createElement("div");
     const subdiv02 = document.createElement("div");
     const subdiv03 = document.createElement("div");
     const title = document.createElement("p");
     title.setAttribute("class", "title_editable");
     title.setAttribute("value", "title");
+
     title.textContent = taskTitleRef.value;
     const description = document.createElement("p");
     description.setAttribute("class", "description_editable");
+
     description.textContent = taskDescriptionRef.value;
     const priority = document.createElement("div");
-    //
 
-    const countableDone =
-      dropAbleTodoRef.getElementsByClassName("title_editable");
-    const countDone = dropAbleTodoRef.children[0].children[1];
-    for (let i = 1; i < dropAbleTodoRef.length + 1; i++) {
-      countDone.innerText = i + 1;
-    }
-    console.log(countDone.innerText);
-    //
     for (let i = 0; i < priorityRef.length; i++) {
       if (priorityRef.value === priorityRef[i].textContent.toLowerCase()) {
         priority.textContent = priorityRef[i].textContent;
@@ -109,17 +142,67 @@ function addTask() {
 
     // listtodoRef.appendChild(title);
     // listtodoRef.appendChild(description);
+
     filltaskRef.style.display = "none";
   }
+
+  // Add Counting begins here: =========================================
+  const countTodo = document.getElementById("list-todo").childElementCount;
+  const countInPro = document.getElementById("list-progress").childElementCount;
+  const countStuck = document.getElementById("list-stuck").childElementCount;
+  const countDone = document.getElementById("list-done").childElementCount;
+  //+++++++++++++
+  const numbTodo =
+    document.getElementsByClassName("box")[0].children[0].children[1];
+  const numbInPro =
+    document.getElementsByClassName("box")[1].children[0].children[1];
+  // console.log(numbInPro, "numb");
+  const numbStuck =
+    document.getElementsByClassName("box")[2].children[0].children[1];
+  // console.log(numbInPro, "numb");
+  const numbDone =
+    document.getElementsByClassName("box")[3].children[0].children[1];
+  //+++++++++++++
+  // console.log(numbInPro, "numb");
+  numbTodo.innerText = countTodo;
+  numbInPro.innerText = countInPro;
+  numbStuck.innerText = countStuck;
+  numbDone.innerText = countDone;
+  // -----------------------------------------------------------------
   taskTitleRef.value = "";
   taskDescriptionRef.value = "";
 }
+// Delete function begins here: ============================
 function deleteTask(event) {
   console.log("event -", event);
   let parent = event.parentNode.parentNode.parentNode;
   let child = event.parentNode.parentNode;
-  console.log(parent, child);
+  console.log("parent", parent, "child", child);
   parent.removeChild(child);
+
+  // Delete count begins here: ----------------------------------------
+  const countTodo = document.getElementById("list-todo").childElementCount;
+  const countInPro = document.getElementById("list-progress").childElementCount;
+  const countStuck = document.getElementById("list-stuck").childElementCount;
+  const countDone = document.getElementById("list-done").childElementCount;
+  //+++++++++++++
+  const numbTodo =
+    document.getElementsByClassName("box")[0].children[0].children[1];
+  const numbInPro =
+    document.getElementsByClassName("box")[1].children[0].children[1];
+  console.log(numbInPro, "numb");
+  const numbStuck =
+    document.getElementsByClassName("box")[2].children[0].children[1];
+  console.log(numbInPro, "numb");
+  const numbDone =
+    document.getElementsByClassName("box")[3].children[0].children[1];
+  //+++++++++++++
+  // console.log(numbInPro, "numb");
+  numbTodo.innerText = countTodo;
+  numbInPro.innerText = countInPro;
+  numbStuck.innerText = countStuck;
+  numbDone.innerText = countDone;
+  // -----------------------------------------------------------------
 }
 
 // Edit task from begins here:=====================================
@@ -146,23 +229,35 @@ function openEditTask(event, subdiv) {
 editTitleInputRef.value = "";
 editDescrInputRef.value = "";
 //drag and drop ====================================================
-
-const draggAbleBoxesRef = document.querySelectorAll(".list");
-const draggAbleTodoRef = draggAbleBoxesRef[0];
-const draggAbleInProgRef = draggAbleBoxesRef[1];
-const draggAbleStuckRef = draggAbleBoxesRef[2];
-const draggAbleDoneRef = draggAbleBoxesRef[3];
-
+let draggAbleTaskesRef = document.querySelectorAll(".dragg");
+draggAbleTaskesRef.forEach((draggAbleTaskesRef) => {
+  draggAbleTaskesRef.addEventListener("dragstart", (event) => {
+    console.log("dragstart");
+  });
+});
 const dropAbleTodoRef = document.getElementById("box01");
 const dropAbleInProgRef = document.getElementById("box02");
 const dropAbleStuckRef = document.getElementById("box03");
 const dropAbleDonegRef = document.getElementById("box04");
-console.log(dropAbleTodoRef, dropAbleInProgRef);
+// console.log(subdiv, "draggAbleTodoRef");
 
-//drop -------------------------------------------------------------
+//drop ===============================================================
 // dropAbleTodoRef.addEventListener("dragenter", (event) => {});
 
-// Counting negins here: ===========================================
-
-// const countableDone = dropAbleTodoRef.querySelectorAll(".title_editable");
-// console.log(countableDone);
+// dropAbleInProgRef.addEventListener("dragenter", (event) => {
+//   event.target.style.border = "solid 1px red";
+//   console.log("drag enter");
+// });
+// dropAbleInProgRef.addEventListener("dragover", (event) => {
+//   // console.log("drag over");
+//   event.preventDefault();
+// });
+// dropAbleInProgRef.addEventListener("dragleave", (event) => {
+//   console.log("drag leave");
+//   event.target.style.border = "none";
+// });
+// dropAbleInProgRef.addEventListener("drop", (event) => {
+//   event.target.style.border = "none";
+//   const parentTodo = event.target.children[1];
+//   // parentTodo.appendChild(draggAbleTodoRef);
+// });

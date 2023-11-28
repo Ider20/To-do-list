@@ -60,7 +60,11 @@ body {
   position: relative;
   /* padding-top: 30px; */
   display: none;
+  transition: all 0.3s ease-in-out;
 }
+/* .form-background:active {
+  transform: scale(1.1);
+} */
 .form {
   width: 400px;
   height: 400px;
