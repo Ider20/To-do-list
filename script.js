@@ -270,3 +270,5 @@ function doneTask(event) {
   event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
   doneDiv.appendChild(preDone);
 }
+{
+}
