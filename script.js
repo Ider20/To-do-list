@@ -7,20 +7,16 @@ const taskTitleRef = document.getElementById("titleinput"); // Form title field
 const taskDescriptionRef = document.getElementById("textinput"); // Form description field
 // console.log("descriptipn", taskDescriptionRef);
 //task list boxes
-// const listtodoRef = document.getElementById("list-todo"); // UL list-todo
+const listtodoRef = document.getElementById("list-todo"); // UL list-todo
 const listProgressRef = document.getElementById("list-progress"); //UL list-progress
 const listStuckRef = document.getElementById("list-stuck"); // UL list-stuck
 const listDoneRef = document.getElementById("list-done"); //UL list-Done
 
-//task list options
+//task list options ----------------------------
 const toDoOptionRef = document.getElementById("ToDo");
 const inProgressOptionRef = document.getElementById("InProgress");
 const stuckOptionRef = document.getElementById("Stuck");
 const doneOptionRef = document.getElementById("Done");
-// console.log(toDoOptionRef.innerHTML);
-// console.log(inProgressOptionRef.innerHTML);
-// console.log(stuckOptionRef.innerHTML);
-// console.log(doneOptionRef.innerHTML);
 
 const listUlRef = document.getElementsByClassName("box"); // Pusshing chilrden in here
 // console.log("Ul -", listUlRef[0].children[1]);
@@ -47,6 +43,7 @@ function addTask() {
   } else {
     const buttonCheck = document.createElement("button");
     buttonCheck.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
+    buttonCheck.setAttribute("onclick", "doneTask(this)");
 
     const buttonDelete = document.createElement("button");
     buttonDelete.innerHTML = `<i class="fa-solid fa-trash"></i>`;
@@ -57,33 +54,46 @@ function addTask() {
     buttonEdit.addEventListener("click", (event) =>
       openEditTask(event, subdiv)
     );
-    //Create and adding new 'div' with draggable ----------------------------------------
+    //Create and adding new 'div' with draggable ==========================
+    const dropAbleTodoRef = document.getElementById("box01");
+    const dropAbleInProgRef = document.getElementById("box02");
+    const dropAbleStuckRef = document.getElementById("box03");
+    const dropAbleDonegRef = document.getElementById("box04");
+
     const subdiv = document.createElement("div");
     subdiv.setAttribute("draggable", "true");
     subdiv.setAttribute("class", "dragg");
-
-    let test = subdiv.querySelectorAll("dragg");
-
+    // Drag scene + + + + + + + + + + + + + + + + + + + + + + + + + + + +
     subdiv.addEventListener("dragstart", (event) => {
-      event.target.classList.add("test");
-      console.log(event.target);
+      event.target.classList.add("pulled");
     });
-
-    subdiv.addEventListener("drag", (event) => {
-      // console.log("drag");
-    });
+    subdiv.addEventListener("drag", (event) => {});
     subdiv.addEventListener("dragend", (event) => {
-      // event.target.classList.remove("test");
-      console.log("drag end");
+      event.target.classList.remove("pulled");
     });
-
-    //-------
+    // Drop scene + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
+    // Drop to do - - - - - - - - - - - - - - - - - - - - -
+    dropAbleTodoRef.addEventListener("dragenter", (event) => {
+      event.target.style.boxshadow = "10px 10px 10px #000";
+    });
+    dropAbleTodoRef.addEventListener("dragover", (event) => {
+      event.preventDefault();
+    });
+    dropAbleTodoRef.addEventListener("dragleave", (event) => {
+      event.target.style.border = "none";
+    });
+    dropAbleTodoRef.addEventListener("drop", (event) => {
+      event.target.style.border = "none";
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      dropSite.appendChild(dragCard);
+    });
+    // Drop in progress - - - - - - - - - - - - - - - - -
     dropAbleInProgRef.addEventListener("dragenter", (event) => {
-      event.target.style.border = "solid 1px red";
-      console.log("drag enter");
+      event.target.style.boxshadow = "10px 10px 10px #000";
+      console.log("dragenter", dropAbleInProgRef);
     });
     dropAbleInProgRef.addEventListener("dragover", (event) => {
-      // console.log("drag over");
       event.preventDefault();
     });
     dropAbleInProgRef.addEventListener("dragleave", (event) => {
@@ -92,25 +102,59 @@ function addTask() {
     });
     dropAbleInProgRef.addEventListener("drop", (event) => {
       event.target.style.border = "none";
-      // console.log("event.target", event.target.children[1]);
-      const dragCard = document.getElementsByClassName("test")[0];
-      event.target.children[1].appendChild(dragCard);
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      dropSite.appendChild(dragCard);
       console.log("drop", event.target);
     });
-    // ----------------------------------------------------------------------------------
-
+    // Drop stuck - - - - - - - - - - - - - - - - - - - - -
+    dropAbleStuckRef.addEventListener("dragenter", (event) => {
+      event.target.style.boxshadow = "10px 10px 10px #000";
+    });
+    dropAbleStuckRef.addEventListener("dragover", (event) => {
+      event.preventDefault();
+    });
+    dropAbleStuckRef.addEventListener("dragleave", (event) => {
+      event.target.style.border = "none";
+    });
+    dropAbleStuckRef.addEventListener("drop", (event) => {
+      event.target.style.border = "none";
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      dropSite.appendChild(dragCard);
+    });
+    // Drop done - - - - - - - - - - - - - - - - - - - - -
+    dropAbleDonegRef.addEventListener("dragenter", (event) => {
+      event.target.style.boxshadow = "10px 10px 10px #000";
+    });
+    dropAbleDonegRef.addEventListener("dragover", (event) => {
+      event.preventDefault();
+    });
+    dropAbleDonegRef.addEventListener("dragleave", (event) => {
+      event.target.style.border = "none";
+    });
+    dropAbleDonegRef.addEventListener("drop", (event) => {
+      event.target.style.border = "none";
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      console.log("event drop -", event.target.children[1]);
+      // event.innerHTML = "";
+      // event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      dropSite.appendChild(dragCard);
+    });
+    // ===========================================================
     const subdiv01 = document.createElement("div");
     const subdiv02 = document.createElement("div");
     const subdiv03 = document.createElement("div");
     const title = document.createElement("p");
     title.setAttribute("class", "title_editable");
     title.setAttribute("value", "title");
-
     title.textContent = taskTitleRef.value;
+
     const description = document.createElement("p");
     description.setAttribute("class", "description_editable");
-
     description.textContent = taskDescriptionRef.value;
+
     const priority = document.createElement("div");
 
     for (let i = 0; i < priorityRef.length; i++) {
@@ -127,25 +171,15 @@ function addTask() {
     subdiv.appendChild(subdiv01);
     subdiv.appendChild(subdiv02);
     subdiv.appendChild(subdiv03);
-    // console.log(title, description);
     for (let i = 0; i < titleRef.length; i++) {
       for (let j = i; j < selectRef.length; j++) {
         if (selectRef.value === titleRef[i].getAttribute("data-status")) {
-          // console.log(
-          //   selectRef[j].value,
-          //   titleRef[i].getAttribute("data-status")
-          // );
           listUlRef[i].children[1].appendChild(subdiv);
         }
       }
     }
-
-    // listtodoRef.appendChild(title);
-    // listtodoRef.appendChild(description);
-
     filltaskRef.style.display = "none";
   }
-
   // Add Counting begins here: =========================================
   const countTodo = document.getElementById("list-todo").childElementCount;
   const countInPro = document.getElementById("list-progress").childElementCount;
@@ -228,36 +262,11 @@ function openEditTask(event, subdiv) {
 }
 editTitleInputRef.value = "";
 editDescrInputRef.value = "";
-//drag and drop ====================================================
-let draggAbleTaskesRef = document.querySelectorAll(".dragg");
-draggAbleTaskesRef.forEach((draggAbleTaskesRef) => {
-  draggAbleTaskesRef.addEventListener("dragstart", (event) => {
-    console.log("dragstart");
-  });
-});
-const dropAbleTodoRef = document.getElementById("box01");
-const dropAbleInProgRef = document.getElementById("box02");
-const dropAbleStuckRef = document.getElementById("box03");
-const dropAbleDonegRef = document.getElementById("box04");
-// console.log(subdiv, "draggAbleTodoRef");
-
-//drop ===============================================================
-// dropAbleTodoRef.addEventListener("dragenter", (event) => {});
-
-// dropAbleInProgRef.addEventListener("dragenter", (event) => {
-//   event.target.style.border = "solid 1px red";
-//   console.log("drag enter");
-// });
-// dropAbleInProgRef.addEventListener("dragover", (event) => {
-//   // console.log("drag over");
-//   event.preventDefault();
-// });
-// dropAbleInProgRef.addEventListener("dragleave", (event) => {
-//   console.log("drag leave");
-//   event.target.style.border = "none";
-// });
-// dropAbleInProgRef.addEventListener("drop", (event) => {
-//   event.target.style.border = "none";
-//   const parentTodo = event.target.children[1];
-//   // parentTodo.appendChild(draggAbleTodoRef);
-// });
+// Task done button ========================================================
+function doneTask(event) {
+  const preDone = event.parentNode.parentNode;
+  const doneDiv = document.getElementById("list-done");
+  event.innerHTML = "";
+  event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+  doneDiv.appendChild(preDone);
+}
