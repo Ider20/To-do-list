@@ -22,7 +22,8 @@ const listUlRef = document.getElementsByClassName("box"); // Pusshing chilrden i
 // console.log("Ul -", listUlRef[0].children[1]);
 // -------------------------------------------------------
 const titleRef = document.getElementsByClassName("title");
-// console.log("h2 -", titleRef[0].getAttribute("data-status"));
+console.log(titleRef);
+console.log("h2 -", titleRef[0].getAttribute("data-status"));
 // -------------------------------------------------------
 const selectRef = document.getElementById("lists-of-option");
 // console.log("selectRef -", selectRef[0].value);
@@ -78,6 +79,9 @@ function addTask() {
     });
     dropAbleTodoRef.addEventListener("dragover", (event) => {
       event.preventDefault();
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      dropSite.appendChild(dragCard);
     });
     dropAbleTodoRef.addEventListener("dragleave", (event) => {
       event.target.style.border = "none";
@@ -87,17 +91,21 @@ function addTask() {
       const dragCard = document.getElementsByClassName("pulled")[0];
       const dropSite = event.target.children[1];
       dropSite.appendChild(dragCard);
+      count();
     });
     // Drop in progress - - - - - - - - - - - - - - - - -
     dropAbleInProgRef.addEventListener("dragenter", (event) => {
       event.target.style.boxshadow = "10px 10px 10px #000";
-      console.log("dragenter", dropAbleInProgRef);
+      // console.log("dragenter", dropAbleInProgRef);
     });
     dropAbleInProgRef.addEventListener("dragover", (event) => {
       event.preventDefault();
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      dropSite.appendChild(dragCard);
     });
     dropAbleInProgRef.addEventListener("dragleave", (event) => {
-      console.log("drag leave");
+      // console.log("drag leave");
       event.target.style.border = "none";
     });
     dropAbleInProgRef.addEventListener("drop", (event) => {
@@ -105,7 +113,8 @@ function addTask() {
       const dragCard = document.getElementsByClassName("pulled")[0];
       const dropSite = event.target.children[1];
       dropSite.appendChild(dragCard);
-      console.log("drop", event.target);
+      // console.log("drop", event.target);
+      count();
     });
     // Drop stuck - - - - - - - - - - - - - - - - - - - - -
     dropAbleStuckRef.addEventListener("dragenter", (event) => {
@@ -113,6 +122,9 @@ function addTask() {
     });
     dropAbleStuckRef.addEventListener("dragover", (event) => {
       event.preventDefault();
+      const dragCard = document.getElementsByClassName("pulled")[0];
+      const dropSite = event.target.children[1];
+      dropSite.appendChild(dragCard);
     });
     dropAbleStuckRef.addEventListener("dragleave", (event) => {
       event.target.style.border = "none";
@@ -122,6 +134,7 @@ function addTask() {
       const dragCard = document.getElementsByClassName("pulled")[0];
       const dropSite = event.target.children[1];
       dropSite.appendChild(dragCard);
+      count();
     });
     // Drop done - - - - - - - - - - - - - - - - - - - - -
     dropAbleDonegRef.addEventListener("dragenter", (event) => {
@@ -129,6 +142,10 @@ function addTask() {
     });
     dropAbleDonegRef.addEventListener("dragover", (event) => {
       event.preventDefault();
+      // const dragCard = document.getElementsByClassName("pulled")[0];
+      // const dropSite = event.target.children[1];
+      // // console.log("event drop -", event.target.children[1]);
+      // dropSite.appendChild(dragCard);
     });
     dropAbleDonegRef.addEventListener("dragleave", (event) => {
       event.target.style.border = "none";
@@ -137,10 +154,11 @@ function addTask() {
       event.target.style.border = "none";
       const dragCard = document.getElementsByClassName("pulled")[0];
       const dropSite = event.target.children[1];
-      console.log("event drop -", event.target.children[1]);
+      // console.log("event drop -", event.target.children[1]);
       // event.innerHTML = "";
       // event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       dropSite.appendChild(dragCard);
+      count();
     });
     // ===========================================================
     const subdiv01 = document.createElement("div");
@@ -156,6 +174,7 @@ function addTask() {
     description.textContent = taskDescriptionRef.value;
 
     const priority = document.createElement("div");
+    priority.setAttribute("id", "prior");
 
     for (let i = 0; i < priorityRef.length; i++) {
       if (priorityRef.value === priorityRef[i].textContent.toLowerCase()) {
@@ -180,6 +199,89 @@ function addTask() {
     }
     filltaskRef.style.display = "none";
   }
+  count();
+  taskTitleRef.value = "";
+  taskDescriptionRef.value = "";
+}
+// Delete function begins here: ============================
+function deleteTask(event) {
+  // console.log("event -", event);
+  let parent = event.parentNode.parentNode.parentNode;
+  let child = event.parentNode.parentNode;
+  // console.log("parent", parent, "child", child);
+  parent.removeChild(child);
+  count();
+}
+
+// Edit task from begins here:=====================================
+const editTaskWindowRef = document.querySelector(".edit-background");
+const editTitleInputRef = document.getElementById("edittitleinput");
+const editDescrInputRef = document.getElementById("edittextinput");
+const editSelectRef = document.getElementById("edit-lists-of-option");
+const editPriorityRef = document.getElementById("editpriority");
+
+function openEditTask(event, subdiv) {
+  editTaskWindowRef.style.display = "flex";
+  const title = subdiv.getElementsByClassName("title_editable")[0];
+  // console.log(title);
+  const description = subdiv.getElementsByClassName("description_editable")[0];
+  editTitleInputRef.value = title.innerText;
+  editDescrInputRef.value = description.innerText;
+  const editTaskDone = document.getElementById("edittaskdone");
+
+  const priorityContent = description.parentNode.children[2].textContent;
+  // console.log(editPriorityRef[0].value);
+  for (i = 0; i < editPriorityRef.length; i++) {
+    if (editPriorityRef[i].value === priorityContent.toLowerCase()) {
+      editPriorityRef.value = editPriorityRef[i].value;
+    }
+  }
+
+  // console.log(editSelectRef[0].value, titleRef[1].getAttribute("data-status"));
+  // for (i = 0; i < editSelectRef.length; i++) {
+  //   for (j = i; j < titleRef.length; j++) {
+  //     if (editSelectRef[i].value === titleRef[j].getAttribute("data-status")) {
+  //       editSelectRef.value = editSelectRef[i].value;
+  //     }
+  //   }
+  // }
+  // console.log("compare -", editSelectRef.length);
+
+  // Edit task done begins here: ====================================
+  editTaskDone.onclick = () => {
+    // console.log("calling");
+    title.textContent = editTitleInputRef.value;
+    description.textContent = editDescrInputRef.value;
+    editTaskWindowRef.style.display = "none";
+    const editSelectRef = document.getElementById("edit-lists-of-option");
+    console.log(editSelectRef);
+    for (let i = 0; i < titleRef.length; i++) {
+      if (editSelectRef.value === titleRef[i].getAttribute("data-status")) {
+        listUlRef[i].children[1].appendChild(subdiv);
+      }
+    }
+    const editPriorityRef = document.getElementById("editpriority");
+    const editPrior = document.getElementById("prior");
+    for (let i = 0; i < editPriorityRef.length; i++) {
+      if (
+        editPriorityRef.value === editPriorityRef[i].textContent.toLowerCase()
+      ) {
+        editPrior.textContent = editPriorityRef[i].textContent;
+      }
+    }
+  };
+}
+editTitleInputRef.value = "";
+editDescrInputRef.value = "";
+// Task done button ========================================================
+function doneTask(event) {
+  const preDone = event.parentNode.parentNode;
+  const doneDiv = document.getElementById("list-done");
+  event.innerHTML = "";
+  event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+  doneDiv.appendChild(preDone);
+}
+function count() {
   // Add Counting begins here: =========================================
   const countTodo = document.getElementById("list-todo").childElementCount;
   const countInPro = document.getElementById("list-progress").childElementCount;
@@ -202,73 +304,4 @@ function addTask() {
   numbInPro.innerText = countInPro;
   numbStuck.innerText = countStuck;
   numbDone.innerText = countDone;
-  // -----------------------------------------------------------------
-  taskTitleRef.value = "";
-  taskDescriptionRef.value = "";
-}
-// Delete function begins here: ============================
-function deleteTask(event) {
-  console.log("event -", event);
-  let parent = event.parentNode.parentNode.parentNode;
-  let child = event.parentNode.parentNode;
-  console.log("parent", parent, "child", child);
-  parent.removeChild(child);
-
-  // Delete count begins here: ----------------------------------------
-  const countTodo = document.getElementById("list-todo").childElementCount;
-  const countInPro = document.getElementById("list-progress").childElementCount;
-  const countStuck = document.getElementById("list-stuck").childElementCount;
-  const countDone = document.getElementById("list-done").childElementCount;
-  //+++++++++++++
-  const numbTodo =
-    document.getElementsByClassName("box")[0].children[0].children[1];
-  const numbInPro =
-    document.getElementsByClassName("box")[1].children[0].children[1];
-  console.log(numbInPro, "numb");
-  const numbStuck =
-    document.getElementsByClassName("box")[2].children[0].children[1];
-  console.log(numbInPro, "numb");
-  const numbDone =
-    document.getElementsByClassName("box")[3].children[0].children[1];
-  //+++++++++++++
-  // console.log(numbInPro, "numb");
-  numbTodo.innerText = countTodo;
-  numbInPro.innerText = countInPro;
-  numbStuck.innerText = countStuck;
-  numbDone.innerText = countDone;
-  // -----------------------------------------------------------------
-}
-
-// Edit task from begins here:=====================================
-const editTaskWindowRef = document.querySelector(".edit-background");
-const editTitleInputRef = document.getElementById("edittitleinput");
-const editDescrInputRef = document.getElementById("edittextinput");
-
-function openEditTask(event, subdiv) {
-  editTaskWindowRef.style.display = "flex";
-  const title = subdiv.getElementsByClassName("title_editable")[0];
-  // console.log(title);
-  const description = subdiv.getElementsByClassName("description_editable")[0];
-  editTitleInputRef.value = title.innerText;
-  editDescrInputRef.value = description.innerText;
-  const editTaskDone = document.getElementById("edittaskdone");
-  // Edit task done begins here: ====================================
-  editTaskDone.onclick = () => {
-    // console.log("calling");
-    title.textContent = editTitleInputRef.value;
-    description.textContent = editDescrInputRef.value;
-    editTaskWindowRef.style.display = "none";
-  };
-}
-editTitleInputRef.value = "";
-editDescrInputRef.value = "";
-// Task done button ========================================================
-function doneTask(event) {
-  const preDone = event.parentNode.parentNode;
-  const doneDiv = document.getElementById("list-done");
-  event.innerHTML = "";
-  event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-  doneDiv.appendChild(preDone);
-}
-{
-}
+} // -----------------------------------------------------------------
