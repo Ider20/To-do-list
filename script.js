@@ -40,7 +40,9 @@ function closeTask() {
 
 function addTask() {
   if (taskTitleRef.value === "" && taskDescriptionRef.value === "") {
-    alert("Please fill the Title or Description");
+    const title = document.getElementById("titleinput");
+    title.style.border = "solid 1px red";
+    // alert("Please fill the Title or Description");
   } else {
     const buttonCheck = document.createElement("button");
     buttonCheck.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
@@ -255,18 +257,49 @@ function openEditTask(event, subdiv) {
     editTaskWindowRef.style.display = "none";
     const editSelectRef = document.getElementById("edit-lists-of-option");
     console.log(editSelectRef);
+    const editPriorityRef = document.getElementById("editpriority");
+    console.log("editPriorityRef", editPriorityRef);
+    const editPrior = document.getElementById("prior");
+    console.log("editPrior", editPrior);
+    // for (let i = 0; i < editPriorityRef.length; i++) {
+    //   if (editPriorityRef[i].value) {
+    //     editPrior.textContent = editPriorityRef.value;
+    //   }
+    // }
     for (let i = 0; i < titleRef.length; i++) {
       if (editSelectRef.value === titleRef[i].getAttribute("data-status")) {
         listUlRef[i].children[1].appendChild(subdiv);
       }
+      for (let i = 0; i < editPriorityRef.length; i++) {
+        // console.log("editPriorityRef[i].value", editPriorityRef[1].innerText);
+        if (editPriorityRef[i].value === editPriorityRef.value) {
+          const priorityText = description.parentNode.children[2];
+          priorityText.textContent = editPriorityRef[i].innerText;
+        }
+      }
     }
-    const editPriorityRef = document.getElementById("editpriority");
-    const editPrior = document.getElementById("prior");
+    // Done btn --------------------------------------------------------------------
     for (let i = 0; i < editPriorityRef.length; i++) {
+      const taskDoneBtn =
+        description.parentNode.parentNode.children[0].children[0];
+      if (editSelectRef.value === titleRef[3].getAttribute("data-status")) {
+        const taskDoneBtn =
+          description.parentNode.parentNode.children[0].children[0];
+        taskDoneBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+      }
+    }
+    // Todo, InPro, Stuck btn------------------------------------------------------------------------------
+    for (let i = 0; i < editPriorityRef.length; i++) {
+      const taskDoneBtn =
+        description.parentNode.parentNode.children[0].children[0];
       if (
-        editPriorityRef.value === editPriorityRef[i].textContent.toLowerCase()
+        editSelectRef.value === titleRef[0].getAttribute("data-status") ||
+        editSelectRef.value === titleRef[1].getAttribute("data-status") ||
+        editSelectRef.value === titleRef[2].getAttribute("data-status")
       ) {
-        editPrior.textContent = editPriorityRef[i].textContent;
+        const taskDoneBtn =
+          description.parentNode.parentNode.children[0].children[0];
+        taskDoneBtn.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
       }
     }
   };
