@@ -41,7 +41,10 @@ function closeTask() {
 function addTask() {
   if (taskTitleRef.value === "" && taskDescriptionRef.value === "") {
     const title = document.getElementById("titleinput");
-    title.style.border = "solid 1px red";
+    const description = document.getElementById("textinput");
+    title.style.border = "solid 1.5px red";
+    description.style.border = "solid 1.5px red";
+
     // alert("Please fill the Title or Description");
   } else {
     const buttonCheck = document.createElement("button");
@@ -196,6 +199,7 @@ function addTask() {
       for (let j = i; j < selectRef.length; j++) {
         if (selectRef.value === titleRef[i].getAttribute("data-status")) {
           listUlRef[i].children[1].appendChild(subdiv);
+          count();
         }
       }
     }
@@ -239,16 +243,6 @@ function openEditTask(event, subdiv) {
     }
   }
 
-  // console.log(editSelectRef[0].value, titleRef[1].getAttribute("data-status"));
-  // for (i = 0; i < editSelectRef.length; i++) {
-  //   for (j = i; j < titleRef.length; j++) {
-  //     if (editSelectRef[i].value === titleRef[j].getAttribute("data-status")) {
-  //       editSelectRef.value = editSelectRef[i].value;
-  //     }
-  //   }
-  // }
-  // console.log("compare -", editSelectRef.length);
-
   // Edit task done begins here: ====================================
   editTaskDone.onclick = () => {
     // console.log("calling");
@@ -277,6 +271,7 @@ function openEditTask(event, subdiv) {
           priorityText.textContent = editPriorityRef[i].innerText;
         }
       }
+      count();
     }
     // Done btn --------------------------------------------------------------------
     for (let i = 0; i < editPriorityRef.length; i++) {
@@ -287,6 +282,7 @@ function openEditTask(event, subdiv) {
           description.parentNode.parentNode.children[0].children[0];
         taskDoneBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       }
+      count();
     }
     // Todo, InPro, Stuck btn------------------------------------------------------------------------------
     for (let i = 0; i < editPriorityRef.length; i++) {
@@ -301,6 +297,7 @@ function openEditTask(event, subdiv) {
           description.parentNode.parentNode.children[0].children[0];
         taskDoneBtn.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
       }
+      count();
     }
   };
 }
@@ -313,6 +310,7 @@ function doneTask(event) {
   event.innerHTML = "";
   event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
   doneDiv.appendChild(preDone);
+  count();
 }
 function count() {
   // Add Counting begins here: =========================================

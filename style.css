@@ -79,7 +79,6 @@ body {
   height: 100%;
   background-color: #00000072;
   position: relative;
-  /* padding-top: 30px; */
   display: none;
   transition: all 0.3s ease-in-out;
 }
@@ -88,7 +87,6 @@ body {
   height: 100%;
   background-color: #00000072;
   position: relative;
-  /* padding-top: 30px; */
   display: none;
   transition: all 0.3s ease-in-out;
 }
@@ -248,4 +246,55 @@ ul > div > div > div {
   justify-content: center;
   align-items: center;
   border-radius: 7px;
+}
+/* Responsive */
+@media only screen and (max-width: 700px) {
+  body {
+    height: 100%;
+    background-size: 100%;
+    background-repeat: repeat-y;
+  }
+  .list-boxes {
+    margin-top: 50px;
+    padding-bottom: 50px;
+    flex-wrap: wrap;
+  }
+  .box {
+    gap: 10px;
+  }
+  .form-background {
+    height: 100%;
+    margin: auto;
+    position: absolute;
+  }
+  .edit-background {
+    height: 100%;
+    margin: auto;
+    position: absolute;
+  }
+  .form {
+    width: 250px;
+    height: 400px;
+  }
+  .form > label {
+    font-size: 13px;
+  }
+  .form > input {
+    margin-bottom: 5px;
+    height: 25px;
+  }
+  .form > textarea {
+    margin-bottom: 5px;
+    height: 50px;
+  }
+  .form > select {
+    margin-bottom: 5px;
+    height: 25px;
+  }
+  .form > button:first-child {
+    height: 30px;
+  }
+  .form > button:last-child {
+    height: 40px;
+  }
 }
