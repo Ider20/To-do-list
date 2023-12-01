@@ -8,6 +8,7 @@ const taskDescriptionRef = document.getElementById("textinput"); // Form descrip
 // console.log("descriptipn", taskDescriptionRef);
 //task list boxes
 const listtodoRef = document.getElementById("list-todo"); // UL list-todo
+// console.log(listtodoRef, "list");
 const listProgressRef = document.getElementById("list-progress"); //UL list-progress
 const listStuckRef = document.getElementById("list-stuck"); // UL list-stuck
 const listDoneRef = document.getElementById("list-done"); //UL list-Done
@@ -96,6 +97,9 @@ function addTask() {
       const dragCard = document.getElementsByClassName("pulled")[0];
       const dropSite = event.target.children[1];
       dropSite.appendChild(dragCard);
+      const doneTaskDrag =
+        event.target.children[1].children[0].children[0].children[0];
+      doneTaskDrag.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
       count();
     });
     // Drop in progress - - - - - - - - - - - - - - - - -
@@ -119,6 +123,9 @@ function addTask() {
       const dropSite = event.target.children[1];
       dropSite.appendChild(dragCard);
       // console.log("drop", event.target);
+      const doneTaskDrag =
+        event.target.children[1].children[0].children[0].children[0];
+      doneTaskDrag.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
       count();
     });
     // Drop stuck - - - - - - - - - - - - - - - - - - - - -
@@ -139,6 +146,10 @@ function addTask() {
       const dragCard = document.getElementsByClassName("pulled")[0];
       const dropSite = event.target.children[1];
       dropSite.appendChild(dragCard);
+      const doneTaskDrag =
+        event.target.children[1].children[0].children[0].children[0];
+      doneTaskDrag.innerHTML = "";
+      doneTaskDrag.innerHTML = `<i class="fa-regular fa-circle-check"></i>`;
       count();
     });
     // Drop done - - - - - - - - - - - - - - - - - - - - -
@@ -163,6 +174,10 @@ function addTask() {
       // event.innerHTML = "";
       // event.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
       dropSite.appendChild(dragCard);
+      const doneTaskDrag =
+        event.target.children[1].children[0].children[0].children[0];
+      doneTaskDrag.innerHTML = `<i class="fa-solid fa-circle-check"></i>`;
+      // console.log(doneTaskDrag.innerHTML);
       count();
     });
     // ===========================================================
@@ -206,6 +221,7 @@ function addTask() {
     filltaskRef.style.display = "none";
   }
   count();
+  sort();
   taskTitleRef.value = "";
   taskDescriptionRef.value = "";
 }
@@ -336,3 +352,13 @@ function count() {
   numbStuck.innerText = countStuck;
   numbDone.innerText = countDone;
 } // -----------------------------------------------------------------
+// Sort =================================================================
+function sort() {
+  let array = [];
+  const sorts = document.getElementsByClassName("list");
+  const sort01 = [0].children[0].children[1].children[2].innerText;
+  const sort02 = [1].children[0].children[1].children[2].innerText;
+  const sort03 = [2].children[0].children[1].children[2].innerText;
+  const sort04 = [3].children[0].children[1].children[2].innerText;
+  console.log(sort01, sort02, sort03, sort04);
+}
